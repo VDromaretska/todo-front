@@ -29,3 +29,23 @@ body {
 .btn:focus-visible {
   background: hsl(200, 100%, 50%, 0.5);
 }
+
+.input {
+  padding: 0.25rem;
+  margin: 0.5rem auto;
+}
+
+.btn-d {
+  background: hsla(358, 47%, 31%, 0.1);
+  border: 1px solid hsl(327, 56%, 62%);
+  color: hsl(350, 86%, 57%);
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  outline: none;
+}
+.btn-d:hover,
+.btn-d:focus-visible {
+  background: hsla(310, 81%, 37%, 0.5);
+}
