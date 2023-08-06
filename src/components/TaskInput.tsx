@@ -5,12 +5,14 @@ export interface TaskInputProps {
   updateTasks: (st: string[]) => void;
   draft: string;
   setDraft: (st: string) => void;
+  apiBaseURL: string;
 }
 export function TaskInput({
   tasks,
   updateTasks,
   draft,
   setDraft,
+  apiBaseURL,
 }: TaskInputProps): JSX.Element {
   const handleAdd = () => {
     updateTasks(

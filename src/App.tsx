@@ -2,7 +2,6 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Todo } from "./components/Todo";
 import "./main.css";
-
 function App(): JSX.Element {
   return (
     <div>
