@@ -1,0 +1,31 @@
+* {
+  font-family: Roboto, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: #333;
+  color: hsl(200, 100%, 90%);
+  max-width: 400px;
+  padding: 1rem;
+  margin: 0 auto;
+}
+.header {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.btn {
+  background: hsl(200, 100%, 50%, 0.1);
+  border: 1px solid hsl(200, 100%, 50%);
+  color: hsl(200, 100%, 50%);
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  outline: none;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: hsl(200, 100%, 50%, 0.5);
+}
