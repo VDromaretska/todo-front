@@ -29,12 +29,12 @@ export function TaskList({
 
   async function handleDelete(task: string) {
     const taskArray = task.split(" ");
-    const deleteTaskData: any = {
+    const deleteTaskData: JsonTask = {
       taskBody: taskArray[0],
       AddedBy: taskArray[3],
       DueDate: taskArray[5],
     };
-    axios.delete(apiBaseURL, deleteTaskData);
+    axios.delete(apiBaseURL, { data: deleteTaskData });
   }
 
   return (
