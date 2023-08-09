@@ -1,6 +1,7 @@
 import "../main.css";
 import axios from "axios";
 import { JsonTask } from "./Todo";
+import { useRef } from "react";
 
 export interface TaskInputProps {
   tasks: string[];
@@ -24,6 +25,7 @@ export function TaskInput({
   dueDate,
   setDueDate,
 }: TaskInputProps): JSX.Element {
+  const dateInputRef = useRef(null);
   async function handleAddTask() {
     const newTaskData: JsonTask = {
       taskBody: draft,
@@ -38,27 +40,34 @@ export function TaskInput({
 
   return (
     <div>
-      <input
-        className="input"
-        value={draft}
-        onChange={(e) => setDraft(e.target.value)}
-        type="text"
-        placeholder="Type new task.."
-      />
-      <input
-        className="input"
-        value={addedBy}
-        onChange={(e) => setAddedBy(e.target.value)}
-        type="text"
-        placeholder="Type who added.."
-      />
-      <input
-        className="input"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-        type="text"
-        placeholder="Type due date.."
-      />
+      <div>
+        <input
+          className="input"
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          type="text"
+          placeholder="Type new task.."
+        />
+      </div>
+      <div>
+        <input
+          className="input"
+          value={addedBy}
+          onChange={(e) => setAddedBy(e.target.value)}
+          type="text"
+          placeholder="Type who added.."
+        />
+      </div>
+      <div>
+        <input
+          className="input"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          ref={dateInputRef}
+        />
+      </div>
+      <p>Select Date: {dueDate}</p>
       {dueDate !== "" && addedBy !== "" && draft !== "" && (
         <button className="btn" onClick={handleAddTask}>
           Add
