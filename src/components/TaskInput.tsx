@@ -3,9 +3,16 @@ import axios from "axios";
 import { JsonTask } from "./Todo";
 import { useRef } from "react";
 
+interface JsonTaskAddProps {
+  description: string;
+  added_by: string;
+  date: string;
+  completed: "Y" | "N";
+}
+
 export interface TaskInputProps {
-  tasks: string[];
-  updateTasks: (st: string[]) => void;
+  tasks: JsonTask[];
+  updateTasks: (st: JsonTask[]) => void;
   draft: string;
   setDraft: (st: string) => void;
   apiBaseURL: string;
@@ -27,10 +34,11 @@ export function TaskInput({
 }: TaskInputProps): JSX.Element {
   const dateInputRef = useRef(null);
   async function handleAddTask() {
-    const newTaskData: JsonTask = {
-      taskBody: draft,
-      AddedBy: addedBy,
-      DueDate: dueDate,
+    const newTaskData: JsonTaskAddProps = {
+      description: draft,
+      added_by: addedBy,
+      date: dueDate,
+      completed: "N",
     };
     axios.post(apiBaseURL, newTaskData);
     setDraft("");

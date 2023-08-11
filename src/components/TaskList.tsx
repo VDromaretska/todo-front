@@ -3,10 +3,10 @@ import "../main.css";
 import { JsonTask } from "./Todo";
 
 interface TaskListProps {
-  tasks: string[];
-  updateComletedTasks: (st: string[]) => void;
-  completedTasks: string[];
-  updateTasks: (st: string[]) => void;
+  tasks: JsonTask[];
+  updateComletedTasks: (st: JsonTask[]) => void;
+  completedTasks: JsonTask[];
+  updateTasks: (st: JsonTask[]) => void;
   apiBaseURL: string;
 }
 
@@ -17,24 +17,12 @@ export function TaskList({
   updateTasks,
   apiBaseURL,
 }: TaskListProps): JSX.Element {
-  async function handleComplete(task: string) {
-    const taskArray = task.split(" ");
-    const completeTaskData: JsonTask = {
-      taskBody: taskArray[0],
-      AddedBy: taskArray[3],
-      DueDate: taskArray[5],
-    };
-    axios.patch(apiBaseURL, completeTaskData);
+  async function handleComplete(task: JsonTask) {
+    axios.patch(apiBaseURL, { data: task });
   }
 
-  async function handleDelete(task: string) {
-    const taskArray = task.split(" ");
-    const deleteTaskData: JsonTask = {
-      taskBody: taskArray[0],
-      AddedBy: taskArray[3],
-      DueDate: taskArray[5],
-    };
-    axios.delete(apiBaseURL, { data: deleteTaskData });
+  async function handleDelete(task: JsonTask) {
+    axios.delete(apiBaseURL, { data: task });
   }
 
   return (
@@ -43,8 +31,8 @@ export function TaskList({
         <h2>Here's your to-do list:</h2>
         <ul>
           {tasks.map((task) => (
-            <div key={task}>
-              <li>{task}</li>
+            <div key={task.t_id}>
+              <li>{`${task.description} added by ${task.added_by} due ${task.date}`}</li>
               <button className="btn-d" onClick={() => handleDelete(task)}>
                 Delete
               </button>

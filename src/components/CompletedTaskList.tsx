@@ -3,7 +3,7 @@ import "../main.css";
 import { JsonTask } from "./Todo";
 
 interface CompletedTaskListProps {
-  completedTasks: string[];
+  completedTasks: JsonTask[];
   apiBaseURL: string;
 }
 
@@ -11,22 +11,16 @@ export function CompletedTaskList({
   completedTasks,
   apiBaseURL,
 }: CompletedTaskListProps): JSX.Element {
-  async function handleDelete(task: string) {
-    const taskArray = task.split(" ");
-    const deleteTaskData: JsonTask = {
-      taskBody: taskArray[0],
-      AddedBy: taskArray[3],
-      DueDate: taskArray[5],
-    };
-    axios.delete(apiBaseURL, { data: deleteTaskData });
+  async function handleDelete(task: JsonTask) {
+    axios.delete(apiBaseURL, { data: task });
   }
   return (
     <>
       <h2>Here's tasks you completed</h2>
       <ul>
         {completedTasks.map((task) => (
-          <div key={task}>
-            <li>{task}</li>
+          <div key={task.t_id}>
+            <li>{`${task.description} added by ${task.added_by} due ${task.date}`}</li>
             <button className="btn-d" onClick={() => handleDelete(task)}>
               Delete
             </button>
