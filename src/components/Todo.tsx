@@ -6,17 +6,16 @@ import "../main.css";
 import axios from "axios";
 
 export interface JsonTask {
-  taskBody: string;
-  AddedBy: string;
-  DueDate: string;
+  t_id: number;
+  description: string;
+  added_by: string;
+  date: string;
+  completed: "Y" | "N";
 }
-export interface ResponseDataProps {
-  toDoTasks: JsonTask[];
-  completeTasks: JsonTask[];
-}
+
 export function Todo(): JSX.Element {
-  const [tasks, setTasks] = useState<string[]>([""]);
-  const [completedTasks, setCompletedTasks] = useState<string[]>([""]);
+  const [tasks, setTasks] = useState<JsonTask[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<JsonTask[]>([]);
   const [draft, setDraft] = useState("");
   const [addedBy, setAddedBy] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -25,22 +24,17 @@ export function Todo(): JSX.Element {
   useEffect(() => {
     async function fetchTasks() {
       const response = await axios.get(apiBaseURL);
-      const taskData: ResponseDataProps = response.data;
-
-      setTasks(
-        taskData.toDoTasks.map(
-          (t) => `${t.taskBody} added by ${t.AddedBy} due ${t.DueDate}`
-        )
-      );
-      setCompletedTasks(
-        taskData.completeTasks.map(
-          (t) => `${t.taskBody} added by ${t.AddedBy} due ${t.DueDate}`
-        )
+      const taskData: JsonTask[] = response.data;
+      console.log(response.data);
+      taskData.map((t) =>
+        t.completed === "N"
+          ? setTasks([...tasks, t])
+          : setCompletedTasks([...completedTasks, t])
       );
     }
     fetchTasks();
   });
-
+  // `${t.description} added by ${t.added_by} due ${t.date}`
   return (
     <div>
       <TaskInput
