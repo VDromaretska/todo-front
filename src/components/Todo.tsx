@@ -33,7 +33,7 @@ export function Todo(): JSX.Element {
       );
     }
     fetchTasks();
-  }, []);
+  }, [completedTasks, tasks]);
   // `${t.description} added by ${t.added_by} due ${t.date}`
   return (
     <div>
