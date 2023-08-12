@@ -23,7 +23,7 @@ export function Todo(): JSX.Element {
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
   useEffect(() => {
     async function fetchTasks() {
-      const response = await axios.get(apiBaseURL);
+      const response = await axios.get(apiBaseURL + "/");
       const taskData: JsonTask[] = response.data;
       console.log(response.data);
       taskData.map((t) =>
@@ -33,7 +33,7 @@ export function Todo(): JSX.Element {
       );
     }
     fetchTasks();
-  });
+  }, []);
   // `${t.description} added by ${t.added_by} due ${t.date}`
   return (
     <div>
