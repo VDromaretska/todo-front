@@ -23,18 +23,23 @@ export function Todo(): JSX.Element {
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
   useEffect(() => {
     async function fetchTasks() {
-      const response = await axios.get(apiBaseURL + "/");
+      const response = await axios.get(apiBaseURL);
       const taskData: JsonTask[] = response.data;
-      console.log(response.data);
-      taskData.map((t) =>
-        t.completed === "N"
-          ? setTasks([...tasks, t])
-          : setCompletedTasks([...completedTasks, t])
-      );
+      const newTasks: JsonTask[] = [];
+      const newCompletedTasks: JsonTask[] = [];
+      for (const task of taskData) {
+        if (task.completed === "N") {
+          newTasks.push(task);
+        } else {
+          newCompletedTasks.push(task);
+        }
+      }
+      setTasks(newTasks);
+      setCompletedTasks(newCompletedTasks);
     }
     fetchTasks();
   }, [completedTasks, tasks]);
-  // `${t.description} added by ${t.added_by} due ${t.date}`
+
   return (
     <div>
       <TaskInput
