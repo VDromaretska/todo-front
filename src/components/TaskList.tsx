@@ -20,7 +20,7 @@ export function TaskList({
   async function handleComplete(newTaskCompleted: JsonTask) {
     try {
       await axios.patch(apiBaseURL, {
-        data: { t_id: newTaskCompleted.t_id },
+        t_id: newTaskCompleted.t_id,
       });
       //Updating state
       const newTasks = tasks.filter((t) => t.t_id !== newTaskCompleted.t_id);
