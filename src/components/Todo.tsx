@@ -34,8 +34,11 @@ export function Todo(): JSX.Element {
           newCompletedTasks.push(task);
         }
       }
-      setTasks(newTasks);
-      setCompletedTasks(newCompletedTasks);
+      setTasks((prevTasks) => [...prevTasks, ...newTasks]);
+      setCompletedTasks((prevCompletedTasks) => [
+        ...prevCompletedTasks,
+        ...newCompletedTasks,
+      ]);
     }
     fetchTasks();
   }, [completedTasks, tasks]);
