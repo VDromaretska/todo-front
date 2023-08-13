@@ -23,7 +23,7 @@ export function TaskList({
         data: newTaskCompleted.description,
       });
       //Updating state
-      const newTasks = tasks.filter((t) => t.t_id != newTaskCompleted.t_id);
+      const newTasks = tasks.filter((t) => t.t_id !== newTaskCompleted.t_id);
       const newCompletedTasks = [...completedTasks, newTaskCompleted];
       updateTasks(newTasks);
       updateComletedTasks(newCompletedTasks);
@@ -38,9 +38,9 @@ export function TaskList({
         data: taskToDelete.description,
       });
       //Updating state
-      const newTasks = tasks.filter((t) => t.t_id != taskToDelete.t_id);
+      const newTasks = tasks.filter((t) => t.t_id !== taskToDelete.t_id);
       const newCompletedTasks = completedTasks.filter(
-        (t) => t.t_id != taskToDelete.t_id
+        (t) => t.t_id !== taskToDelete.t_id
       );
       updateTasks(newTasks);
       updateComletedTasks(newCompletedTasks);

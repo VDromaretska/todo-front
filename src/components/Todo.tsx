@@ -65,6 +65,7 @@ export function Todo(): JSX.Element {
       />
       <CompletedTaskList
         completedTasks={completedTasks}
+        updateComletedTasks={setCompletedTasks}
         apiBaseURL={apiBaseURL}
       />
     </div>
