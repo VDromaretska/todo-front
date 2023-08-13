@@ -20,7 +20,7 @@ export function TaskList({
   async function handleComplete(newTaskCompleted: JsonTask) {
     try {
       axios.patch(apiBaseURL, {
-        data: newTaskCompleted.description,
+        data: newTaskCompleted.t_id,
       });
       //Updating state
       const newTasks = tasks.filter((t) => t.t_id !== newTaskCompleted.t_id);
@@ -35,7 +35,7 @@ export function TaskList({
   async function handleDelete(taskToDelete: JsonTask) {
     try {
       axios.delete(apiBaseURL, {
-        data: taskToDelete.description,
+        data: taskToDelete.t_id,
       });
       //Updating state
       const newTasks = tasks.filter((t) => t.t_id !== taskToDelete.t_id);

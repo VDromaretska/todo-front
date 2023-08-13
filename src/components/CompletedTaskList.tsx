@@ -15,7 +15,7 @@ export function CompletedTaskList({
 }: CompletedTaskListProps): JSX.Element {
   async function handleDelete(taskToDelete: JsonTask) {
     try {
-      await axios.delete(apiBaseURL, { data: taskToDelete.description });
+      await axios.delete(apiBaseURL, { data: taskToDelete.t_id });
       //Update states
       const newCompletedTasks = completedTasks.filter(
         (t) => t.t_id !== taskToDelete.t_id
