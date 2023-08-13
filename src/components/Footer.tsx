@@ -3,16 +3,14 @@ export function Footer(): JSX.Element {
     <div>
       <p>Created by : VDromaretska</p>
       <p>
-        <a href="https://github.com/VDromaretska/todo-front">
-          {" "}
-          Link to front-end repo
-        </a>
+        {" "}
+        Link to front-end repo
+        <a href="https://github.com/VDromaretska/todo-front"> here</a>
       </p>
       <p>
-        <a href="https://github.com/VDromaretska/todo-back">
-          {" "}
-          Link to back-end repo
-        </a>
+        {" "}
+        Link to back-end repo
+        <a href="https://github.com/VDromaretska/todo-back"> here</a>
       </p>
     </div>
   );
