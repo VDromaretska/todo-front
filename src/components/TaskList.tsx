@@ -18,7 +18,14 @@ export function TaskList({
   apiBaseURL,
 }: TaskListProps): JSX.Element {
   async function handleComplete(task: JsonTask) {
-    axios.patch(apiBaseURL, { data: task });
+    axios.patch(apiBaseURL, {
+      data: {
+        description: task.description,
+        added_by: task.added_by,
+        date: task.date,
+        completed: task.completed,
+      },
+    });
   }
 
   async function handleDelete(task: JsonTask) {
