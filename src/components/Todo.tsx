@@ -41,7 +41,7 @@ export function Todo(): JSX.Element {
       ]);
     }
     fetchTasks();
-  }, [completedTasks, tasks]);
+  }, []);
 
   return (
     <div>
