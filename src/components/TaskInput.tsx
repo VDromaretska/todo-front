@@ -40,10 +40,23 @@ export function TaskInput({
       date: dueDate,
       completed: "N",
     };
-    axios.post(apiBaseURL, newTaskData);
-    setDraft("");
-    setAddedBy("");
-    setDueDate("");
+    try {
+      await axios.post(apiBaseURL, newTaskData);
+      setDraft("");
+      setAddedBy("");
+      setDueDate("");
+      const response = await axios.get(apiBaseURL);
+      const taskData = response.data;
+      const newTasksData: JsonTask[] = [];
+      for (const task of taskData) {
+        if (task.completed === "N") {
+          newTasksData.push(task);
+        }
+      }
+      updateTasks(newTasksData);
+    } catch (error) {
+      console.error("Error with adding task: ", error);
+    }
   }
 
   return (
