@@ -19,7 +19,7 @@ export function TaskList({
 }: TaskListProps): JSX.Element {
   async function handleComplete(newTaskCompleted: JsonTask) {
     try {
-      axios.patch(apiBaseURL, {
+      await axios.patch(apiBaseURL, {
         data: newTaskCompleted.t_id,
       });
       //Updating state
@@ -34,7 +34,7 @@ export function TaskList({
 
   async function handleDelete(taskToDelete: JsonTask) {
     try {
-      axios.delete(apiBaseURL, {
+      await axios.delete(apiBaseURL, {
         data: taskToDelete.t_id,
       });
       //Updating state
