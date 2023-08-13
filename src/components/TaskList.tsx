@@ -17,16 +17,36 @@ export function TaskList({
   updateTasks,
   apiBaseURL,
 }: TaskListProps): JSX.Element {
-  async function handleComplete(task: JsonTask) {
-    axios.patch(apiBaseURL, {
-      data: task.description,
-    });
+  async function handleComplete(newTaskCompleted: JsonTask) {
+    try {
+      axios.patch(apiBaseURL, {
+        data: newTaskCompleted.description,
+      });
+      //Updating state
+      const newTasks = tasks.filter((t) => t.t_id != newTaskCompleted.t_id);
+      const newCompletedTasks = [...completedTasks, newTaskCompleted];
+      updateTasks(newTasks);
+      updateComletedTasks(newCompletedTasks);
+    } catch (error) {
+      console.error("Error completing the task:", newTaskCompleted, error);
+    }
   }
 
-  async function handleDelete(task: JsonTask) {
-    axios.delete(apiBaseURL, {
-      data: task.description,
-    });
+  async function handleDelete(taskToDelete: JsonTask) {
+    try {
+      axios.delete(apiBaseURL, {
+        data: taskToDelete.description,
+      });
+      //Updating state
+      const newTasks = tasks.filter((t) => t.t_id != taskToDelete.t_id);
+      const newCompletedTasks = completedTasks.filter(
+        (t) => t.t_id != taskToDelete.t_id
+      );
+      updateTasks(newTasks);
+      updateComletedTasks(newCompletedTasks);
+    } catch (error) {
+      console.error("Error completing the task:", taskToDelete, error);
+    }
   }
 
   return (
