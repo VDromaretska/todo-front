@@ -13,7 +13,7 @@ export interface JsonTask {
   completed: "Y" | "N";
 }
 
-export function Todo(): JSX.Element {
+export function TodoMainDisplayer(): JSX.Element {
   const [tasks, setTasks] = useState<JsonTask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<JsonTask[]>([]);
   const [draft, setDraft] = useState("");

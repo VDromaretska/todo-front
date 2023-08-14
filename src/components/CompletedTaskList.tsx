@@ -1,6 +1,6 @@
 import axios from "axios";
 import "../main.css";
-import { JsonTask } from "./Todo";
+import { JsonTask } from "./TodoMainDisplayer";
 
 interface CompletedTaskListProps {
   completedTasks: JsonTask[];

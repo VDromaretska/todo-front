@@ -1,6 +1,6 @@
 import "../main.css";
 import axios from "axios";
-import { JsonTask } from "./Todo";
+import { JsonTask } from "./TodoMainDisplayer";
 import { useRef } from "react";
 
 interface JsonTaskAddProps {

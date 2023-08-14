@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Todo } from "./components/Todo";
+import { TodoMainDisplayer } from "./components/TodoMainDisplayer";
 import "./main.css";
 function App(): JSX.Element {
   return (
@@ -8,8 +8,7 @@ function App(): JSX.Element {
       <div className="header">
         <Header />
       </div>
-
-      <Todo />
+      <TodoMainDisplayer />
       <Footer />
     </div>
   );
