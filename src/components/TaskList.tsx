@@ -1,20 +1,19 @@
 import axios from "axios";
 import "../main.css";
 import { FullTask } from "./FullTaskInterface";
+import { fetchTasks } from "./TodoMainDisplayer";
 
 interface TaskListProps {
   tasks: FullTask[];
-  updateComletedTasks: (st: FullTask[]) => void;
-  completedTasks: FullTask[];
   updateTasks: (st: FullTask[]) => void;
+  updateComletedTasks: (st: FullTask[]) => void;
   apiBaseURL: string;
 }
 
 export function TaskList({
   tasks,
-  updateComletedTasks,
-  completedTasks,
   updateTasks,
+  updateComletedTasks,
   apiBaseURL,
 }: TaskListProps): JSX.Element {
   async function handleComplete(newTaskCompleted: FullTask) {
@@ -22,11 +21,7 @@ export function TaskList({
       await axios.patch(apiBaseURL, {
         t_id: newTaskCompleted.t_id,
       });
-      //Updating state
-      const newTasks = tasks.filter((t) => t.t_id !== newTaskCompleted.t_id);
-      const newCompletedTasks = [...completedTasks, newTaskCompleted];
-      updateTasks(newTasks);
-      updateComletedTasks(newCompletedTasks);
+      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error completing the task:", newTaskCompleted, error);
     }
@@ -37,13 +32,7 @@ export function TaskList({
       await axios.delete(apiBaseURL, {
         data: { t_id: taskToDelete.t_id },
       });
-      //Updating state
-      const newTasks = tasks.filter((t) => t.t_id !== taskToDelete.t_id);
-      const newCompletedTasks = completedTasks.filter(
-        (t) => t.t_id !== taskToDelete.t_id
-      );
-      updateTasks(newTasks);
-      updateComletedTasks(newCompletedTasks);
+      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error completing the task:", taskToDelete, error);
     }

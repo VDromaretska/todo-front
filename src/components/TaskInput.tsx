@@ -1,7 +1,8 @@
 import "../main.css";
 import axios from "axios";
 import { FullTask } from "./FullTaskInterface";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { fetchTasks } from "./TodoMainDisplayer";
 
 interface JsonTaskAddProps {
   description: string;
@@ -13,25 +14,18 @@ interface JsonTaskAddProps {
 export interface TaskInputProps {
   tasks: FullTask[];
   updateTasks: (st: FullTask[]) => void;
-  draft: string;
-  setDraft: (st: string) => void;
+  updateComletedTasks: (st: FullTask[]) => void;
   apiBaseURL: string;
-  addedBy: string;
-  setAddedBy: (st: string) => void;
-  dueDate: string;
-  setDueDate: (st: string) => void;
 }
 export function TaskInput({
   tasks,
   updateTasks,
-  draft,
-  setDraft,
+  updateComletedTasks,
   apiBaseURL,
-  addedBy,
-  setAddedBy,
-  dueDate,
-  setDueDate,
 }: TaskInputProps): JSX.Element {
+  const [draft, setDraft] = useState("");
+  const [addedBy, setAddedBy] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const dateInputRef = useRef(null);
   async function handleAddTask() {
     const newTaskData: JsonTaskAddProps = {
@@ -45,15 +39,8 @@ export function TaskInput({
       setDraft("");
       setAddedBy("");
       setDueDate("");
-      const response = await axios.get(apiBaseURL);
-      const taskData = response.data;
-      const newTasksData: FullTask[] = [];
-      for (const task of taskData) {
-        if (task.completed === "N") {
-          newTasksData.push(task);
-        }
-      }
-      updateTasks(newTasksData);
+      await axios.get(apiBaseURL);
+      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error with adding task: ", error);
     }

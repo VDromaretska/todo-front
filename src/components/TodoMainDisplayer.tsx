@@ -9,9 +9,6 @@ import axios from "axios";
 export function TodoMainDisplayer(): JSX.Element {
   const [tasks, setTasks] = useState<FullTask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<FullTask[]>([]);
-  const [draft, setDraft] = useState("");
-  const [addedBy, setAddedBy] = useState("");
-  const [dueDate, setDueDate] = useState("");
 
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
 
@@ -24,23 +21,18 @@ export function TodoMainDisplayer(): JSX.Element {
       <TaskInput
         tasks={tasks}
         updateTasks={setTasks}
-        draft={draft}
-        setDraft={setDraft}
+        updateComletedTasks={setCompletedTasks}
         apiBaseURL={apiBaseURL}
-        addedBy={addedBy}
-        setAddedBy={setAddedBy}
-        dueDate={dueDate}
-        setDueDate={setDueDate}
       />
       <TaskList
         tasks={tasks}
-        updateComletedTasks={setCompletedTasks}
-        completedTasks={completedTasks}
         updateTasks={setTasks}
+        updateComletedTasks={setCompletedTasks}
         apiBaseURL={apiBaseURL}
       />
       <CompletedTaskList
         completedTasks={completedTasks}
+        updateTasks={setTasks}
         updateComletedTasks={setCompletedTasks}
         apiBaseURL={apiBaseURL}
       />
