@@ -1,10 +1,10 @@
 import axios from "axios";
 import "../main.css";
-import { JsonTask } from "./TodoMainDisplayer";
+import { FullTask } from "./FullTaskInterface";
 
 interface CompletedTaskListProps {
-  completedTasks: JsonTask[];
-  updateComletedTasks: (st: JsonTask[]) => void;
+  completedTasks: FullTask[];
+  updateComletedTasks: (st: FullTask[]) => void;
   apiBaseURL: string;
 }
 
@@ -13,7 +13,7 @@ export function CompletedTaskList({
   updateComletedTasks,
   apiBaseURL,
 }: CompletedTaskListProps): JSX.Element {
-  async function handleDelete(taskToDelete: JsonTask) {
+  async function handleDelete(taskToDelete: FullTask) {
     try {
       await axios.delete(apiBaseURL, { data: { t_id: taskToDelete.t_id } });
       //Update states

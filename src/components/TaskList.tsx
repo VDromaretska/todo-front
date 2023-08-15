@@ -1,12 +1,12 @@
 import axios from "axios";
 import "../main.css";
-import { JsonTask } from "./TodoMainDisplayer";
+import { FullTask } from "./FullTaskInterface";
 
 interface TaskListProps {
-  tasks: JsonTask[];
-  updateComletedTasks: (st: JsonTask[]) => void;
-  completedTasks: JsonTask[];
-  updateTasks: (st: JsonTask[]) => void;
+  tasks: FullTask[];
+  updateComletedTasks: (st: FullTask[]) => void;
+  completedTasks: FullTask[];
+  updateTasks: (st: FullTask[]) => void;
   apiBaseURL: string;
 }
 
@@ -17,7 +17,7 @@ export function TaskList({
   updateTasks,
   apiBaseURL,
 }: TaskListProps): JSX.Element {
-  async function handleComplete(newTaskCompleted: JsonTask) {
+  async function handleComplete(newTaskCompleted: FullTask) {
     try {
       await axios.patch(apiBaseURL, {
         t_id: newTaskCompleted.t_id,
@@ -32,7 +32,7 @@ export function TaskList({
     }
   }
 
-  async function handleDelete(taskToDelete: JsonTask) {
+  async function handleDelete(taskToDelete: FullTask) {
     try {
       await axios.delete(apiBaseURL, {
         data: { t_id: taskToDelete.t_id },

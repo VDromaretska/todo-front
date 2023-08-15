@@ -2,45 +2,21 @@ import { useEffect, useState } from "react";
 import { TaskList } from "./TaskList";
 import { TaskInput } from "./TaskInput";
 import { CompletedTaskList } from "./CompletedTaskList";
+import { FullTask } from "./FullTaskInterface";
 import "../main.css";
 import axios from "axios";
 
-export interface JsonTask {
-  t_id: number;
-  description: string;
-  added_by: string;
-  date: string;
-  completed: "Y" | "N";
-}
-
 export function TodoMainDisplayer(): JSX.Element {
-  const [tasks, setTasks] = useState<JsonTask[]>([]);
-  const [completedTasks, setCompletedTasks] = useState<JsonTask[]>([]);
+  const [tasks, setTasks] = useState<FullTask[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<FullTask[]>([]);
   const [draft, setDraft] = useState("");
   const [addedBy, setAddedBy] = useState("");
   const [dueDate, setDueDate] = useState("");
 
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
+
   useEffect(() => {
-    async function fetchTasks() {
-      const response = await axios.get(apiBaseURL);
-      const taskData: JsonTask[] = response.data;
-      const newTasks: JsonTask[] = [];
-      const newCompletedTasks: JsonTask[] = [];
-      for (const task of taskData) {
-        if (task.completed === "N") {
-          newTasks.push(task);
-        } else {
-          newCompletedTasks.push(task);
-        }
-      }
-      setTasks((prevTasks) => [...prevTasks, ...newTasks]);
-      setCompletedTasks((prevCompletedTasks) => [
-        ...prevCompletedTasks,
-        ...newCompletedTasks,
-      ]);
-    }
-    fetchTasks();
+    fetchTasks(apiBaseURL, setTasks, setCompletedTasks, tasks, completedTasks);
   }, []);
 
   return (
@@ -70,4 +46,35 @@ export function TodoMainDisplayer(): JSX.Element {
       />
     </div>
   );
+}
+// here we export fetch task function as we will use it across different components
+
+export async function fetchTasks(
+  apiBaseURL: string,
+  setTasks: (st: FullTask[]) => void,
+  setCompletedTasks: (st: FullTask[]) => void,
+  prevTasks: FullTask[],
+  prevCompletedTasks: FullTask[]
+) {
+  try {
+    const response = await axios.get(apiBaseURL);
+    const taskData: FullTask[] = response.data;
+    const newTasks: FullTask[] = [];
+    const newCompletedTasks: FullTask[] = [];
+    for (const task of taskData) {
+      if (task.completed === "N") {
+        newTasks.push(task);
+      } else {
+        newCompletedTasks.push(task);
+      }
+    }
+    setTasks(updateTasksState(prevTasks, newTasks));
+    setCompletedTasks(updateTasksState(prevCompletedTasks, newCompletedTasks));
+  } catch (error) {
+    console.error(error);
+  }
+}
+//needed to create this function to calm down typescript
+export function updateTasksState(prev: FullTask[], updated: FullTask[]) {
+  return [...prev, ...updated];
 }

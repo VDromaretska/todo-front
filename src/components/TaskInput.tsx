@@ -1,6 +1,6 @@
 import "../main.css";
 import axios from "axios";
-import { JsonTask } from "./TodoMainDisplayer";
+import { FullTask } from "./FullTaskInterface";
 import { useRef } from "react";
 
 interface JsonTaskAddProps {
@@ -11,8 +11,8 @@ interface JsonTaskAddProps {
 }
 
 export interface TaskInputProps {
-  tasks: JsonTask[];
-  updateTasks: (st: JsonTask[]) => void;
+  tasks: FullTask[];
+  updateTasks: (st: FullTask[]) => void;
   draft: string;
   setDraft: (st: string) => void;
   apiBaseURL: string;
@@ -47,7 +47,7 @@ export function TaskInput({
       setDueDate("");
       const response = await axios.get(apiBaseURL);
       const taskData = response.data;
-      const newTasksData: JsonTask[] = [];
+      const newTasksData: FullTask[] = [];
       for (const task of taskData) {
         if (task.completed === "N") {
           newTasksData.push(task);
