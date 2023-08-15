@@ -17,7 +17,7 @@ export function TodoMainDisplayer(): JSX.Element {
 
   useEffect(() => {
     fetchTasks(apiBaseURL, setTasks, setCompletedTasks, tasks, completedTasks);
-  }, []);
+  }, [tasks, completedTasks]);
 
   return (
     <div>
