@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { TaskList } from "./TaskList";
 import { TaskInput } from "./TaskInput";
 import { CompletedTaskList } from "./CompletedTaskList";
@@ -16,8 +16,8 @@ export function TodoMainDisplayer(): JSX.Element {
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
 
   useEffect(() => {
-    fetchTasks(apiBaseURL, setTasks, setCompletedTasks, tasks, completedTasks);
-  }, [tasks, completedTasks]);
+    fetchTasks(apiBaseURL, setTasks, setCompletedTasks);
+  }, []);
 
   return (
     <div>
@@ -52,9 +52,7 @@ export function TodoMainDisplayer(): JSX.Element {
 export async function fetchTasks(
   apiBaseURL: string,
   setTasks: (st: FullTask[]) => void,
-  setCompletedTasks: (st: FullTask[]) => void,
-  prevTasks: FullTask[],
-  prevCompletedTasks: FullTask[]
+  setCompletedTasks: (st: FullTask[]) => void
 ) {
   try {
     const response = await axios.get(apiBaseURL);
@@ -68,13 +66,9 @@ export async function fetchTasks(
         newCompletedTasks.push(task);
       }
     }
-    setTasks(updateTasksState(prevTasks, newTasks));
-    setCompletedTasks(updateTasksState(prevCompletedTasks, newCompletedTasks));
+    setTasks(newTasks);
+    setCompletedTasks(newCompletedTasks);
   } catch (error) {
     console.error(error);
   }
-}
-//needed to create this function to calm down typescript
-export function updateTasksState(prev: FullTask[], updated: FullTask[]) {
-  return [...prev, ...updated];
 }
