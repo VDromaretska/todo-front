@@ -13,7 +13,7 @@ export function TodoMainDisplayer(): JSX.Element {
   const apiBaseURL = "https://to-do-list-gqr6.onrender.com";
 
   useEffect(() => {
-    fetchTasks(apiBaseURL, setTasks, setCompletedTasks);
+    fetchTasksAndUpdateStates(apiBaseURL, setTasks, setCompletedTasks);
   }, []);
 
   return (
@@ -41,7 +41,7 @@ export function TodoMainDisplayer(): JSX.Element {
 }
 // here we export fetch task function as we will use it across different components
 
-export async function fetchTasks(
+export async function fetchTasksAndUpdateStates(
   apiBaseURL: string,
   setTasks: (st: FullTask[]) => void,
   setCompletedTasks: (st: FullTask[]) => void

@@ -1,7 +1,7 @@
 import axios from "axios";
 import "../main.css";
 import { FullTask } from "./FullTaskInterface";
-import { fetchTasks } from "./TodoMainDisplayer";
+import { fetchTasksAndUpdateStates } from "./TodoMainDisplayer";
 
 interface CompletedTaskListProps {
   completedTasks: FullTask[];
@@ -19,7 +19,7 @@ export function CompletedTaskList({
   async function handleDelete(taskToDelete: FullTask) {
     try {
       await axios.delete(apiBaseURL, { data: { t_id: taskToDelete.t_id } });
-      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
+      fetchTasksAndUpdateStates(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error deleting task from completed list", error);
     }

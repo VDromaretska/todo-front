@@ -1,7 +1,7 @@
 import axios from "axios";
 import "../main.css";
 import { FullTask } from "./FullTaskInterface";
-import { fetchTasks } from "./TodoMainDisplayer";
+import { fetchTasksAndUpdateStates } from "./TodoMainDisplayer";
 
 interface TaskListProps {
   tasks: FullTask[];
@@ -21,7 +21,7 @@ export function TaskList({
       await axios.patch(apiBaseURL, {
         t_id: newTaskCompleted.t_id,
       });
-      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
+      fetchTasksAndUpdateStates(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error completing the task:", newTaskCompleted, error);
     }
@@ -32,7 +32,7 @@ export function TaskList({
       await axios.delete(apiBaseURL, {
         data: { t_id: taskToDelete.t_id },
       });
-      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
+      fetchTasksAndUpdateStates(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error completing the task:", taskToDelete, error);
     }

@@ -2,7 +2,7 @@ import "../main.css";
 import axios from "axios";
 import { FullTask } from "./FullTaskInterface";
 import { useRef, useState } from "react";
-import { fetchTasks } from "./TodoMainDisplayer";
+import { fetchTasksAndUpdateStates } from "./TodoMainDisplayer";
 
 interface JsonTaskAddProps {
   description: string;
@@ -40,7 +40,7 @@ export function TaskInput({
       setAddedBy("");
       setDueDate("");
       await axios.get(apiBaseURL);
-      fetchTasks(apiBaseURL, updateTasks, updateComletedTasks);
+      fetchTasksAndUpdateStates(apiBaseURL, updateTasks, updateComletedTasks);
     } catch (error) {
       console.error("Error with adding task: ", error);
     }
